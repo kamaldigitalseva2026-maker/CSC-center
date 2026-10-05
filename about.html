@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Kamal Digital Seva</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --primary-accent: #2563eb;
+            --success: #16a34a;
+            --bg-light: #f8fafc;
+            --border-color: #e2e8f0;
+            --text-muted: #64748b;
+        }
+
+        /* Modern Header Actions Layout & Menu Button Styling */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bell-container {
+            position: relative;
+            width: 30px;
+            height: 30px;
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0f172a;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .bell-container:hover {
+            border-color: #2563eb;
+            color: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        .menu-toggle-btn {
+            height: 32px;
+            padding: 0 16px;
+            background: #ffffff;
+            border: 1.5px solid #2563eb;
+            color: #2563eb;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 1px 3px rgba(37, 99, 235, 0.08);
+        }
+
+        .menu-toggle-btn:hover {
+            background: #2563eb;
+            color: #ffffff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        .menu-toggle-btn i {
+            font-size: 0.95rem;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* Hero / About Banner */
+        .about-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #ffffff;
+            border-radius: 20px;
+            padding: 45px 35px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+            margin-bottom: 35px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-badge {
+            background: rgba(37, 99, 235, 0.25);
+            color: #60a5fa;
+            border: 1px solid rgba(96, 165, 250, 0.3);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 16px;
+        }
+
+        .about-hero h2 {
+            font-size: 2.1rem;
+            font-weight: 800;
+            margin: 0 0 14px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .about-hero p {
+            font-size: 1rem;
+            color: #cbd5e1;
+            max-width: 750px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Quick Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 35px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .stat-item h3 {
+            font-size: 1.8rem;
+            color: #60a5fa;
+            margin: 0 0 4px 0;
+            font-weight: 700;
+        }
+
+        .stat-item p {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin: 0;
+        }
+
+        /* Mission & Commitment Grid */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 35px;
+        }
+
+        .info-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+            transition: transform 0.25s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+        }
+
+        .card-title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .card-icon-box {
+            width: 44px;
+            height: 44px;
+            background: #eff6ff;
+            color: var(--primary-accent);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .info-card h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .info-card p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+            margin: 0;
+        }
+
+        /* Highlights / Key Features Grid */
+        .section-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .section-header h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 0 0 6px 0;
+            font-weight: 700;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .feature-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 22px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.02);
+            transition: all 0.25s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary-accent);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.08);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--bg-light);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin: 0 auto 14px auto;
+        }
+
+        .feature-card h4 {
+            font-size: 1rem;
+            color: var(--primary);
+            margin: 0 0 8px 0;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Center Verification Banner */
+        .center-meta-box {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 16px;
+            padding: 24px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .meta-text {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .meta-text i {
+            font-size: 2rem;
+            color: var(--success);
+        }
+
+        .meta-text div h4 {
+            margin: 0 0 4px 0;
+            font-size: 1.05rem;
+            color: #14532d;
+            font-weight: 700;
+        }
+
+        .meta-text div p {
+            margin: 0;
+            font-size: 0.88rem;
+            color: #166534;
+        }
+
+        .btn-visit {
+            background: var(--primary);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: opacity 0.2s;
+        }
+
+        .btn-visit:hover {
+            opacity: 0.9;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid-2col {
+                grid-template-columns: 1fr;
+            }
+
+            .center-meta-box {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .meta-text {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .about-hero {
+                padding: 30px 20px;
+            }
+
+            .about-hero h2 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="brand">
+                <img src="csc-logo.png" alt="CSC Digital Seva Logo" class="brand-logo-img">
+                <div class="brand-title">
+                    <h1 id="ui-center-name">Kamal Digital Seva</h1>
+                    <p>Official Service Portal</p>
+                </div>
+            </a>
+            <div class="header-actions">
+                <!-- 🔔 Notification Bell Icon -->
+                <div class="bell-container" id="bellIconBtn" title="Live Updates Notifications">
+                    <i class="fa-solid fa-bell"></i>
+                    <span id="bell-badge" class="bell-badge" style="display: none;">0</span>
+                </div>
+                <button class="menu-toggle-btn" id="openDrawerBtn" aria-label="Toggle Navigation">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                    <span>Menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Side Drawer Navigation -->
+    <div class="sidebar-overlay" id="drawerOverlay"></div>
+    <nav class="side-drawer" id="sideDrawer">
+        <div class="drawer-header">
+            <h3>Navigation Menu</h3>
+            <button class="close-drawer-btn" id="closeDrawerBtn">&times;</button>
+        </div>
+        <ul class="drawer-menu">
+            <li><a href="index.html"><i class="fa-solid fa-house"></i> Overview (Home)</a></li>
+            <li><a href="about.html" class="active-page"><i class="fa-solid fa-building"></i> About Us</a></li>
+            <li><a href="services.html"><i class="fa-solid fa-gears"></i> Services</a></li>
+            <li><a href="updates.html"><i class="fa-solid fa-bullhorn"></i> Live Updates</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-location-dot"></i> Contact Us</a></li>
+            <li><a href="faq.html"><i class="fa-solid fa-circle-question"></i> FAQ</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Container Content -->
+    <div class="container">
+
+        <!-- Hero Banner -->
+        <section class="about-hero">
+            <span class="hero-badge"><i class="fa-solid fa-shield-halved"></i> Authorized Service Center</span>
+            <h2>Empowering Citizens with Fast & Reliable Digital Services</h2>
+            <p>At Kamal Digital Seva, we are committed to bridging the digital gap for local citizens by delivering hassle-free government schemes, online forms, identity updates, and essential utility services.</p>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>500+</h3>
+                    <p>Applications Processed</p>
+                </div>
+                <div class="stat-item">
+                    <h3>100%</h3>
+                    <p>Verified & Secure Work</p>
+                </div>
+                <div class="stat-item">
+                    <h3>Quick</h3>
+                    <p>On-Spot Assistance</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission & Commitment Grid -->
+        <div class="grid-2col">
+            <div class="info-card">
+                <div class="card-title-group">
+                    <div class="card-icon-box">
+                        <i class="fa-solid fa-bullseye"></i>
+                    </div>
+                    <h3>Our Mission</h3>
+                </div>
+                <p>To provide accessible, transparent, and accurate digital services to every citizen without unnecessary delays or hassle. We handle your documentation with utmost care and guidance.</p>
+            </div>
+
+            <div class="info-card">
+                <div class="card-title-group">
+                    <div class="card-icon-box">
+                        <i class="fa-solid fa-handshake"></i>
+                    </div>
+                    <h3>Our Commitment</h3>
+                </div>
+                <p>We strictly adhere to official guidelines to ensure error-free application submissions. Our center offers dedicated support for senior citizens and students seeking welfare programs.</p>
+            </div>
+        </div>
+
+        <!-- Key Features Section -->
+        <div class="section-header">
+            <h3>Why Choose Our Center?</h3>
+            <p>Experience reliable digital service execution under one roof.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <h4>Fast Processing</h4>
+                <p>Quick form submissions and document verification without long waiting times.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-file-shield"></i>
+                </div>
+                <h4>Error-Free Work</h4>
+                <p>Double-checking details before final submission to avoid form rejections.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-user-check"></i>
+                </div>
+                <h4>Full Guidance</h4>
+                <p>Step-by-step assistance regarding required documents for government welfare schemes.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fa-solid fa-receipt"></i>
+                </div>
+                <h4>Transparent Fees</h4>
+                <p>Official portal charges with fair service fees—no hidden or extra charges.</p>
+            </div>
+        </div>
+
+        <!-- Verified Center Meta Box -->
+        <div class="center-meta-box">
+            <div class="meta-text">
+                <i class="fa-solid fa-circle-check"></i>
+                <div>
+                    <h4>Visit Our Center Today</h4>
+                    <p>Located Opposite PNB Bank, 1st Floor, Gitamandir Road, Hojai.</p>
+                </div>
+            </div>
+            <a href="contact.html" class="btn-visit">
+                <i class="fa-solid fa-location-dot"></i> Get Directions
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Customer Service Center Portal. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
