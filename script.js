@@ -1,12 +1,12 @@
 // ==========================================
-// ⚙️️ CONFIGURATION OBJECT
+// ⚙ CONFIGURATION OBJECT
 // ==========================================
 const CONFIG = {
     centerName: "Kamal Digital Seva",
     address: "Hojai, Gitamandir, PNB opposite, 1st floor",
     
-    // Live Updates Fetch URL
-    webAppUrl: "https://script.google.com/macros/s/AKfycbz-vHSzZLHY3Sk3r-WE-PU0LpO7eMQ_Z1GKkvjYzxsit_duG5lvjdsw0lFGXU8-4I3z/exec",
+    // Live Updates Fetch URL (Updated with New Web App)
+    webAppUrl: "https://script.google.com/macros/s/AKfycbwNhhD7RoFGgC1lFIlXBYGjdfA6AHPtkOKPTZXzQmAahPNeu4luSULptKSEOp8W2wVt4Q/exec",
 
     // Customer Leads Save URL
     saveCustomerUrl: "https://script.google.com/macros/s/AKfycbzzIVjuPHKfe5zTxQRC-zi_8HwVFIVTGJ0YThRXFc6ejm6QRwmTgB47-BPuGA_fFfF1Pg/exec"
