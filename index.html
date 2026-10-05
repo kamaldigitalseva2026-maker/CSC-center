@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Kamal Digital Seva</title>
+    <!-- Font Awesome Icons Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Modern Header Actions Layout */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Modernized Notification Bell Button */
+        .bell-btn {
+            position: relative;
+            width: 30px;
+            height: 30px;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .bell-btn:hover {
+            background: #eff6ff;
+            color: #2563eb;
+            border-color: #93c5fd;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.15);
+        }
+
+        .bell-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background-color: #ef4444;
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 700;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 4px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #ffffff;
+            box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
+        }
+
+        /* Professional Menu Button */
+        .menu-toggle-btn {
+            height: 35px;
+            padding: 0 16px;
+            background: #ffffff;
+            border: 1.5px solid #2563eb;
+            color: #2563eb;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 1px 3px rgba(37, 99, 235, 0.08);
+        }
+
+        .menu-toggle-btn:hover {
+            background: #2563eb;
+            color: #ffffff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        .menu-toggle-btn i {
+            font-size: 0.95rem;
+        }
+
+        /* Page Layout & Component Styling */
+        .announcement-bar {
+            background: #fef3c7;
+            border: 1px solid #fde68a;
+            color: #92400e;
+            padding: 10px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .announcement-bar .notice-text {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .announcement-bar i {
+            color: #d97706;
+            font-size: 1.1rem;
+        }
+
+        .announcement-bar a {
+            color: #b45309;
+            text-decoration: underline;
+            font-weight: 700;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color, #e2e8f0);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .stat-card .icon {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #2563eb;
+            display: inline-block;
+        }
+
+        .stat-card h4 {
+            font-size: 1.1rem;
+            color: var(--primary, #0f172a);
+            margin-bottom: 4px;
+        }
+
+        .stat-card p {
+            font-size: 0.82rem;
+            color: var(--text-muted, #64748b);
+        }
+
+        .card-item h4 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.05rem;
+        }
+
+        .card-item h4 i {
+            color: #2563eb;
+            font-size: 1.1rem;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .step-card {
+            background: #f8fafc;
+            border-left: 4px solid var(--secondary, #2563eb);
+            padding: 16px;
+            border-radius: 8px;
+        }
+
+        .step-number {
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--secondary, #2563eb);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .step-card h4 {
+            font-size: 1rem;
+            color: var(--primary, #0f172a);
+            margin: 4px 0;
+        }
+
+        .step-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted, #64748b);
+        }
+
+        .btn-quick-link {
+            display: inline-block;
+            margin-top: 12px;
+            color: var(--accent, #0284c7);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.88rem;
+        }
+
+        .info-paragraph-section p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-color, #334155);
+            margin-bottom: 14px;
+        }
+
+        .info-paragraph-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* -----------------------------------
+           Left-Aligned Footer Styling
+        ----------------------------------- */
+        footer {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 25px 20px;
+            margin-top: 40px;
+            text-align: left;
+            border-top: 3px solid #2563eb;
+        }
+
+        .footer-content {
+            max-width: 1150px;
+            margin: 0 auto;
+        }
+
+        .footer-content h3 {
+            color: #ffffff;
+            font-size: 1.15rem;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .footer-content p {
+            font-size: 0.88rem;
+            color: #94a3b8;
+            margin: 4px 0;
+            line-height: 1.5;
+        }
+
+        .footer-timing {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+        }
+
+        .footer-bottom-text {
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px solid #1e293b;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="brand">
+                <img src="csc-logo.png" alt="CSC Digital Seva Logo" class="brand-logo-img">
+                <div class="brand-title">
+                    <h1 id="ui-center-name">Kamal Digital Seva</h1>
+                    <p>Official Service Portal</p>
+                </div>
+            </a>
+            
+            <div class="header-actions">
+                <!-- Notification Bell Button -->
+                <button class="bell-btn" id="bellIconBtn" title="Live Updates Notifications" aria-label="Notifications">
+                    <i class="fa-solid fa-bell"></i>
+                    <span id="bell-badge" class="bell-badge" style="display: none;">0</span>
+                </button>
+
+                <!-- Primary Menu Button -->
+                <button class="menu-toggle-btn" id="openDrawerBtn" aria-label="Toggle Navigation">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                    <span>Menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Side Drawer Navigation -->
+    <div class="sidebar-overlay" id="drawerOverlay"></div>
+    <nav class="side-drawer" id="sideDrawer">
+        <div class="drawer-header">
+            <h3>Navigation Menu</h3>
+            <button class="close-drawer-btn" id="closeDrawerBtn">&times;</button>
+        </div>
+        <ul class="drawer-menu">
+            <li><a href="index.html" class="active-page"><i class="fa-solid fa-house"></i> Overview (Home)</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-building"></i> About Us</a></li>
+            <li><a href="services.html"><i class="fa-solid fa-gears"></i> Services</a></li>
+            <li><a href="updates.html"><i class="fa-solid fa-bullhorn"></i> Live Updates</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-location-dot"></i> Contact Us</a></li>
+            <li><a href="status.html"><i class="fa-solid fa-magnifying-glass"></i> Track Status</a></li>
+            <li><a href="faq.html"><i class="fa-solid fa-circle-question"></i> FAQ</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Container Content -->
+    <div class="container">
+
+        <!-- Announcement Bar -->
+        <div class="announcement-bar">
+            <span class="notice-text">
+                <i class="fa-solid fa-bullhorn"></i>
+                <span><strong>Notice:</strong> New Schemes, Scholarship Forms & Identity Updates Are Open Now!</span>
+            </span>
+            <a href="updates.html">View Updates &rarr;</a>
+        </div>
+
+        <!-- Automatic Image Banner Slider -->
+        <div class="slider-container">
+            <div class="slider-wrapper" id="sliderWrapper">
+                <!-- Slide 1: CSC Services Banner -->
+                <div class="slide">
+                    <img src="banner1.jpg" alt="CSC Services Banner" class="banner-img">
+                </div>
+                <!-- Slide 2: Why Choose Us Banner -->
+                <div class="slide">
+                    <img src="banner2.jpg" alt="Why Choose Us Banner" class="banner-img">
+                </div>
+            </div>
+
+            <!-- Left / Right Control Buttons -->
+            <button class="slider-btn prev-btn" id="prevSlideBtn" aria-label="Previous Slide">&#10094;</button>
+            <button class="slider-btn next-btn" id="nextSlideBtn" aria-label="Next Slide">&#10095;</button>
+
+            <!-- Bottom Dots Indicators -->
+            <div class="slider-dots" id="sliderDots"></div>
+        </div>
+
+        <!-- Quick Stats / Trust Indicators -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="icon"><i class="fa-solid fa-bolt"></i></div>
+                <h4>Fast Processing</h4>
+                <p>Quick turnaround time on forms</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h4>100% Safe & Secure</h4>
+                <p>Verified government standards</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon"><i class="fa-solid fa-award"></i></div>
+                <h4>Official Center</h4>
+                <p>Authorized citizen services</p>
+            </div>
+            <div class="stat-card">
+                <div class="icon"><i class="fa-solid fa-users"></i></div>
+                <h4>500+ Citizens</h4>
+                <p>Assisted successfully</p>
+            </div>
+        </div>
+
+        <!-- Featured Quick Services -->
+        <section class="page-box" style="margin-top: 30px;">
+            <h3 class="page-title">Featured Services</h3>
+            <div class="grid-cards">
+                <div class="card-item">
+                    <h4><i class="fa-solid fa-id-card"></i> Identity & Tax Documents</h4>
+                    <p>New PAN card applications, correction in existing cards, and color prints.</p>
+                    <a href="services.html" class="btn-quick-link">Learn More &rarr;</a>
+                </div>
+                <div class="card-item">
+                    <h4><i class="fa-solid fa-file-contract"></i> Public & State Certificates</h4>
+                    <p>Income certificate, PRC, Residence proof, Caste certificate, and Ration card updates.</p>
+                    <a href="services.html" class="btn-quick-link">Learn More &rarr;</a>
+                </div>
+                <div class="card-item">
+                    <h4><i class="fa-solid fa-graduation-cap"></i> Scholarships & Entrance Forms</h4>
+                    <p>National Scholarship Portal (NSP), CUET college entrance, and online admission forms.</p>
+                    <a href="services.html" class="btn-quick-link">Learn More &rarr;</a>
+                </div>
+                <div class="card-item">
+                    <h4><i class="fa-solid fa-receipt"></i> Utility Bills</h4>
+                    <p>Electricity bill payments, and fast recharges.</p>
+                    <a href="services.html" class="btn-quick-link">Learn More &rarr;</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="page-box">
+            <h3 class="page-title">How To Get Your Service Done</h3>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <span class="step-number">Step 01</span>
+                    <h4>Select Service</h4>
+                    <p>Browse available services or check the live updates section for active deadlines.</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-number">Step 02</span>
+                    <h4>Bring / Send Documents</h4>
+                    <p>Bring required documents to our center or submit them via inquiry.</p>
+                </div>
+                <div class="step-card">
+                    <span class="step-number">Step 03</span>
+                    <h4>Get Receipt</h4>
+                    <p>Receive your official acknowledgment receipt and printout upon completion.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Paragraphs Content Section -->
+        <section class="page-box info-paragraph-section">
+            <h3 class="page-title">Citizen Support & Digital Assistance</h3>
+            <p>Kamal Digital Seva Center is dedicated to providing reliable, transparent, and prompt e-governance services to citizens. Our center aims to simplify complex online procedures, ensuring every citizen gets accurate assistance for identity documents, state certificates, and central schemes.</p>
+            <p>We guide citizens step-by-step through document requirements, online application submissions, and status verification. Every application is reviewed carefully prior to final submission to minimize errors and speed up processing times.</p>
+            <p>If you need help with any application or want to verify document eligibility, feel free to visit our center in person or check the relevant service sections on our portal.</p>
+        </section>
+
+    </div>
+
+    <!-- Left Aligned Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3>Kamal Digital Seva</h3>
+            <p>1st Floor, Opposite PNB, Gitamandir Road, Natun Bazar, Hojai, Assam - 782435</p>
+            <p class="footer-timing"><strong>Mon – Sat:</strong> 09:30 AM – 08:30 PM (Closed on Sundays & Gazetted Holidays)</p>
+            
+            <div class="footer-bottom-text">
+                <p>© 2026 Kamal Digital Seva Center. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | Kamal Digital Seva</title>
+    <!-- Font Awesome Icons Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bell-btn {
+            position: relative;
+            width: 30px;
+            height: 30px;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .bell-btn:hover {
+            background: #eff6ff;
+            color: #2563eb;
+            border-color: #93c5fd;
+            transform: translateY(-1px);
+        }
+
+        .bell-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background-color: #ef4444;
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 700;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 4px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #ffffff;
+        }
+
+        .menu-toggle-btn {
+            height: 35px;
+            padding: 0 16px;
+            background: #ffffff;
+            border: 1.5px solid #2563eb;
+            color: #2563eb;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-toggle-btn:hover {
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        /* Accordion / Dropdown Styling */
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .faq-item {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .faq-item.active {
+            border-color: #93c5fd;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+        }
+
+        .faq-question {
+            font-size: 0.95rem;
+            color: #0f172a;
+            font-weight: 700;
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+            background: #ffffff;
+            transition: background 0.2s ease;
+        }
+
+        .faq-question:hover {
+            background: #f8fafc;
+        }
+
+        .faq-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .faq-title i {
+            color: #2563eb;
+            font-size: 1.05rem;
+        }
+
+        .faq-arrow {
+            color: #64748b;
+            font-size: 0.85rem;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-item.active .faq-arrow {
+            transform: rotate(180deg);
+            color: #2563eb;
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            background: #f8fafc;
+            padding: 0 18px;
+            font-size: 0.9rem;
+            color: #475569;
+            line-height: 1.6;
+            border-top: 1px solid transparent;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 350px;
+            padding: 14px 18px 16px 18px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .asm-text {
+            display: block;
+            margin-top: 4px;
+            font-size: 0.88rem;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .asm-ans {
+            display: block;
+            margin-top: 6px;
+            color: #334155;
+        }
+
+        /* Footer Styling */
+        footer {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 25px 20px;
+            margin-top: 40px;
+            text-align: left;
+            border-top: 3px solid #2563eb;
+        }
+
+        .footer-content {
+            max-width: 1150px;
+            margin: 0 auto;
+        }
+
+        .footer-content h3 {
+            color: #ffffff;
+            font-size: 1.15rem;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .footer-content p {
+            font-size: 0.88rem;
+            color: #94a3b8;
+            margin: 4px 0;
+            line-height: 1.5;
+        }
+
+        .footer-timing {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+        }
+
+        .footer-bottom-text {
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px solid #1e293b;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="brand">
+                <img src="csc-logo.png" alt="CSC Digital Seva Logo" class="brand-logo-img">
+                <div class="brand-title">
+                    <h1 id="ui-center-name">Kamal Digital Seva</h1>
+                    <p>Official Service Portal</p>
+                </div>
+            </a>
+            
+            <div class="header-actions">
+                <button class="bell-btn" id="bellIconBtn" title="Live Updates Notifications" aria-label="Notifications">
+                    <i class="fa-solid fa-bell"></i>
+                    <span id="bell-badge" class="bell-badge" style="display: none;">0</span>
+                </button>
+
+                <button class="menu-toggle-btn" id="openDrawerBtn" aria-label="Toggle Navigation">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                    <span>Menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Side Drawer Navigation -->
+    <div class="sidebar-overlay" id="drawerOverlay"></div>
+    <nav class="side-drawer" id="sideDrawer">
+        <div class="drawer-header">
+            <h3>Navigation Menu</h3>
+            <button class="close-drawer-btn" id="closeDrawerBtn">&times;</button>
+        </div>
+        <ul class="drawer-menu">
+            <li><a href="index.html"><i class="fa-solid fa-house"></i> Overview (Home)</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-building"></i> About Us</a></li>
+            <li><a href="services.html"><i class="fa-solid fa-gears"></i> Services</a></li>
+            <li><a href="updates.html"><i class="fa-solid fa-bullhorn"></i> Live Updates</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-location-dot"></i> Contact Us</a></li>
+            <li><a href="faq.html" class="active-page"><i class="fa-solid fa-circle-question"></i> FAQ</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <section class="page-box">
+            <h3 class="page-title"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions (FAQ)</h3>
+            <p style="color: #64748b; font-size: 0.88rem; margin-bottom: 20px;">
+                Tap on any question to view the answer in English and Assamese (অসমীয়া).
+            </p>
+
+            <div class="faq-list">
+
+                <!-- FAQ Item 1 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-title">
+                            <i class="fa-solid fa-clock"></i>
+                            <div>
+                                <span>What are the center timings?</span>
+                                <span class="asm-text">কেন্দ্ৰৰ সময়সূচী কি?</span>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <strong>English:</strong> Our center is open Monday to Saturday from 09:30 AM to 08:30 PM. Closed on Sundays & Gazetted Holidays.
+                        <span class="asm-ans"><strong>অসমীয়া:</strong> আমাৰ কেন্দ্ৰটো সোমবাৰৰ পৰা শনিবাৰলৈ ৰাতিপুৱা ০৯:৩০ বজাৰ পৰা গধূলি ০৮:৩০ বজালৈ খোলা থাকে। দেওবাৰ আৰু চৰকাৰী বন্ধৰ দিনসমূহত বন্ধ থাকে।</span>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-title">
+                            <i class="fa-solid fa-id-card"></i>
+                            <div>
+                                <span>What documents are required for a new PAN card?</span>
+                                <span class="asm-text">নতুন পেন কাৰ্ডৰ বাবে কি কি নথিপত্ৰ লাগে?</span>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <strong>English:</strong> Identity & Address proof (Aadhaar Card), 2 passport-size photos, and an active mobile number.
+                        <span class="asm-ans"><strong>অসমীয়া:</strong> পৰিচয় আৰু ঠিকনাৰ প্ৰমাণ (আধাৰ কাৰ্ড), ২ কপি পাছপ’ৰ্ট চাইজ ফটো আৰু এটা মোবাইল নম্বৰ।</span>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-title">
+                            <i class="fa-solid fa-file-lines"></i>
+                            <div>
+                                <span>How long does it take for Income, Caste, or PRC certificates?</span>
+                                <span class="asm-text">আয়, জাতি বা স্থায়ী বাসিন্দাৰ প্ৰমাণপত্ৰ (PRC) উলাবলৈ কিমান সময় লাগে?</span>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <strong>English:</strong> Government processing usually takes 7 to 15 working days. You will receive an SMS upon completion.
+                        <span class="asm-ans"><strong>অসমীয়া:</strong> চৰকাৰী প্ৰক্ৰিয়া অনুসৰি প্ৰায় ৭ পৰা ১৫ দিন সময় লাগে। কাজ সম্পূৰ্ণ হ’লে মেছেজ (SMS) জৰিয়তে জনোৱা হয়।</span>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-title">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <div>
+                                <span>How can I check my application status?</span>
+                                <span class="asm-text">আৱেদনৰ স্থিতি (Status) কেনেকৈ পৰীক্ষা কৰিব পাৰোঁ?</span>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <strong>English:</strong> You can visit our center or check online using your Acknowledgment Receipt / Reference Number.
+                        <span class="asm-ans"><strong>অসমীয়া:</strong> একন’লেজমেন্ট ৰিচিফ্ট / ৰেফাৰেন্স নম্বৰ লৈ আমাৰ কেন্দ্ৰলৈ আহি বা অনলাইন পৰ্টেলৰ জৰিয়তে পৰীক্ষা কৰিব পাৰে।</span>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-title">
+                            <i class="fa-solid fa-credit-card"></i>
+                            <div>
+                                <span>What payment options are available?</span>
+                                <span class="asm-text">পৰিশোধ (Payment) কৰাৰ কি কি মাধ্যম আছে?</span>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <strong>English:</strong> Cash, UPI (Google Pay, PhonePe, Paytm), and Net Banking are accepted.
+                        <span class="asm-ans"><strong>অসমীয়া:</strong> নগদ ধন (Cash), UPI (Google Pay, PhonePe, Paytm) আৰু নেট বেংকিং ৰ জৰিয়তে পৰিশোধ কৰিব পাৰিব।</span>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 6 -->
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <div class="faq-title">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <div>
+                                <span>Can I apply for scholarships and entrance exams here?</span>
+                                <span class="asm-text">ইয়াত ছাত্ৰবৃত্তি আৰু প্ৰৱেশ পৰীক্ষাৰ (Entrance Exam) ফৰ্ম জমা দিয়া হয়নে?</span>
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-down faq-arrow"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <strong>English:</strong> Yes, NSP, Assam State Scholarships, CUET, and all govt exam forms are applied here.
+                        <span class="asm-ans"><strong>অসমীয়া:</strong> হয়, ৰাষ্ট্ৰীয় ছাত্ৰবৃত্তি (NSP), অসম ৰাজ্যিক ছাত্ৰবৃত্তি, CUET আৰু সকলো ধৰণৰ চৰকাৰী ফৰ্ম ইয়াত সঠিকভাৱে পূৰণ কৰা হয়।</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+            <div class="footer-bottom-text">
+                <p>© 2026 Kamal Digital Seva Center. All Rights Reserved.</p>
+            </div>
+        
+    </footer>
+
+    <script src="script.js"></script>
+
+    <!-- FAQ Accordion Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const faqQuestions = document.querySelectorAll('.faq-question');
+
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const currentItem = question.parentElement;
+
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        if (item !== currentItem) {
+                            item.classList.remove('active');
+                        }
+                    });
+
+                    currentItem.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Updates | CSC Digital Seva</title>
+    <!-- Font Awesome Icons Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Mobile-Friendly Table & Responsive Layout Fixes */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-top: 15px;
+            border-radius: 10px;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 550px; /* Squeeze hone se rokta hai */
+            background: #ffffff;
+        }
+
+        .data-table th, 
+        .data-table td {
+            padding: 12px 14px;
+            text-align: left;
+            vertical-align: middle;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+        }
+
+        .data-table th {
+            background-color: #f1f5f9;
+            color: #1e293b;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        /* Date Badges Non-breaking Fix */
+        .date-badge,
+        .data-table td span,
+        .data-table td .badge {
+            white-space: nowrap; /* Date toot kar multiple lines me nahi jayegi */
+            display: inline-block;
+        }
+
+        /* Header Action Buttons */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-toggle-btn {
+            height: 32px;
+            padding: 0 16px;
+            background: #ffffff;
+            border: 1.5px solid #2563eb;
+            color: #2563eb;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .menu-toggle-btn:hover {
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        /* Short & Clean Footer */
+        footer {
+            background: #0f172a;
+            color: #cbd5e1;
+            padding: 25px 20px;
+            margin-top: 40px;
+            text-align: center;
+            border-top: 3px solid #2563eb;
+        }
+
+        .footer-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .footer-content h3 {
+            color: #ffffff;
+            font-size: 1.15rem;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .footer-content p {
+            font-size: 0.88rem;
+            color: #94a3b8;
+            margin: 4px 0;
+            line-height: 1.5;
+        }
+
+        .footer-timing {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+        }
+
+        .footer-bottom-text {
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px solid #1e293b;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="brand">
+                <img src="csc-logo.png" alt="CSC Digital Seva Logo" class="brand-logo-img">
+                <div class="brand-title">
+                    <h1 id="ui-center-name">Kamal Digital Seva Center</h1>
+                    <p>Official Service Portal</p>
+                </div>
+            </a>
+            
+            <div class="header-actions">
+                <button class="menu-toggle-btn" id="openDrawerBtn" aria-label="Toggle Navigation">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                    <span>Menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Side Drawer Navigation -->
+    <div class="sidebar-overlay" id="drawerOverlay"></div>
+    <nav class="side-drawer" id="sideDrawer">
+        <div class="drawer-header">
+            <h3>Navigation Menu</h3>
+            <button class="close-drawer-btn" id="closeDrawerBtn">&times;</button>
+        </div>
+        <ul class="drawer-menu">
+            <li><a href="index.html"><i class="fa-solid fa-house"></i> Overview (Home)</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-building"></i> About Us</a></li>
+            <li><a href="services.html"><i class="fa-solid fa-gears"></i> Services</a></li>
+            <li><a href="updates.html"><i class="fa-solid fa-bullhorn"></i> Live Updates</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-location-dot"></i> Contact Us</a></li>
+            <li><a href="faq.html"><i class="fa-solid fa-circle-question"></i> FAQ</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <section class="page-box">
+            <h2 class="page-title">Live Scheme Deadlines & Updates</h2>
+            
+            <!-- Mobile Friendly Table Wrapper -->
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Scheme / Form Name</th>
+                            <th>Category</th>
+                            <th>Last Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="live-data-tbody">
+                        <!-- Loaded dynamically via script.js -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Clean Footer -->
+    <footer>  
+            <div class="footer-bottom-text">
+                <p>© 2026 Kamal Digital Seva Center. All Rights Reserved.</p>
+            </div>
+        
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

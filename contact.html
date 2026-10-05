@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Kamal Digital Seva</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --primary-accent: #2563eb;
+            --success: #16a34a;
+            --bg-light: #f8fafc;
+            --border-color: #e2e8f0;
+            --text-muted: #64748b;
+        }
+
+        /* Modern Header Actions Layout & Menu Button Styling */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bell-container {
+            position: relative;
+            width: 30px;
+            height: 30px;
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0f172a;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .bell-container:hover {
+            border-color: #2563eb;
+            color: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        .menu-toggle-btn {
+            height: 32px;
+            padding: 0 16px;
+            background: #ffffff;
+            border: 1.5px solid #2563eb;
+            color: #2563eb;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 1px 3px rgba(37, 99, 235, 0.08);
+        }
+
+        .menu-toggle-btn:hover {
+            background: #2563eb;
+            color: #ffffff;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+
+        .menu-toggle-btn i {
+            font-size: 0.95rem;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .contact-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 22px;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.25s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+            border-color: #cbd5e1;
+        }
+
+        .card-header-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .card-icon {
+            font-size: 1.25rem;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+
+        .card-icon.location-icon {
+            background: #fef2f2;
+            color: #ef4444;
+        }
+
+        .card-icon.time-icon {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+
+        .contact-card h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 0;
+        }
+
+        .contact-card p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 18px;
+            line-height: 1.5;
+            word-break: break-word;
+        }
+
+        .btn-contact-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 11px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: opacity 0.2s;
+            box-sizing: border-box;
+        }
+
+        .btn-contact-action:hover {
+            opacity: 0.92;
+        }
+
+        .btn-map { background: var(--primary); color: #ffffff; }
+
+        .status-badge {
+            background: #f1f5f9;
+            color: #334155;
+            cursor: default;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.88rem;
+        }
+
+        .status-badge i {
+            color: var(--success);
+            font-size: 0.65rem;
+        }
+
+        .contact-main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: stretch;
+        }
+
+        .guidelines-box {
+            background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .guidelines-box h4 {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 14px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .guidelines-box ul {
+            padding-left: 0;
+            list-style: none;
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+        }
+
+        .guidelines-box li {
+            margin-bottom: 12px;
+            line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .guidelines-box li i {
+            color: var(--primary-accent);
+            margin-top: 3px;
+            font-size: 0.85rem;
+        }
+
+        .map-box {
+            width: 100%;
+            height: 100%;
+            min-height: 280px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
+        }
+
+        .map-box iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        @media (max-width: 850px) {
+            .contact-main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="brand">
+                <img src="csc-logo.png" alt="CSC Digital Seva Logo" class="brand-logo-img">
+                <div class="brand-title">
+                    <h1 id="ui-center-name">Kamal Digital Seva</h1>
+                    <p>Official Service Portal</p>
+                </div>
+            </a>
+            <div class="header-actions">
+                <!-- 🔔 Notification Bell Icon -->
+                <div class="bell-container" id="bellIconBtn" title="Live Updates Notifications">
+                    <i class="fa-solid fa-bell"></i>
+                    <span id="bell-badge" class="bell-badge" style="display: none;">0</span>
+                </div>
+                <button class="menu-toggle-btn" id="openDrawerBtn" aria-label="Toggle Navigation">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                    <span>Menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Side Drawer Navigation -->
+    <div class="sidebar-overlay" id="drawerOverlay"></div>
+    <nav class="side-drawer" id="sideDrawer">
+        <div class="drawer-header">
+            <h3>Navigation Menu</h3>
+            <button class="close-drawer-btn" id="closeDrawerBtn">&times;</button>
+        </div>
+        <ul class="drawer-menu">
+            <li><a href="index.html"><i class="fa-solid fa-house"></i> Overview (Home)</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-building"></i> About Us</a></li>
+            <li><a href="services.html"><i class="fa-solid fa-gears"></i> Services</a></li>
+            <li><a href="updates.html"><i class="fa-solid fa-bullhorn"></i> Live Updates</a></li>
+            <li><a href="contact.html" class="active-page"><i class="fa-solid fa-location-dot"></i> Contact Us</a></li>
+             <li><a href="faq.html"><i class="fa-solid fa-circle-question"></i> FAQ</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Container Content -->
+    <div class="container">
+
+        <!-- Top Row: Location & Hours -->
+        <div class="contact-grid">
+            
+            <!-- Address Card -->
+            <div class="contact-card">
+                <div>
+                    <div class="card-header-info">
+                        <div class="card-icon location-icon">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <h4>Center Location</h4>
+                    </div>
+                    <p>Hojai, Gitamandir, PNB opposite, 1st floor</p>
+                </div>
+                <a href="https://maps.google.com/?q=Gitamandir+Hojai" target="_blank" rel="noopener noreferrer" class="btn-contact-action btn-map">
+                    <i class="fa-solid fa-map-location-dot"></i> Open Location Map
+                </a>
+            </div>
+
+            <!-- Working Hours Card -->
+            <div class="contact-card">
+                <div>
+                    <div class="card-header-info">
+                        <div class="card-icon time-icon">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <h4>Working Hours</h4>
+                    </div>
+                    <p>Mon – Sat: 9:00 AM – 8:30 PM<br>Sunday: Closed</p>
+                </div>
+                <div class="status-badge">
+                    <i class="fa-solid fa-circle"></i> Open Today
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom Grid: Guidelines & Google Map -->
+        <div class="contact-main-grid">
+            
+            <!-- Guidelines Box -->
+            <div class="guidelines-box">
+                <h4><i class="fa-solid fa-clipboard-list"></i> Important Guidelines Before Visiting:</h4>
+                <ul>
+                    <li>
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span><strong>Original Documents:</strong> Please bring original ID proofs along with photocopies.</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span><strong>Mobile Number Link:</strong> Keep your registered mobile phone active for OTP verification.</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span><strong>Passport Photos:</strong> Carry 2 recent passport-size photographs for offline forms.</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span><strong>Landmark:</strong> Located right opposite PNB Bank on the 1st Floor, Gitamandir Road, Hojai.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Google Map Box -->
+            <div class="map-box">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14333.123456789!2d92.85!3d26.00!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDAwJzAwLjAiTiA5MsKwNTEnMDAuMCJF!5e0!3m2!1sen!2sin!4v1600000000000!5m2!1sen!2sin" 
+                    allowfullscreen="" 
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Kamal Digital Seva Portal. All Rights Reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Application Status | Kamal Digital Seva</title>
+    <!-- Font Awesome Icons Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bell-btn {
+            position: relative;
+            width: 30px;
+            height: 30px;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .bell-btn:hover {
+            background: #eff6ff;
+            color: #2563eb;
+            border-color: #93c5fd;
+            transform: translateY(-1px);
+        }
+
+        .bell-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background-color: #ef4444;
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 700;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 4px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #ffffff;
+        }
+
+        .menu-toggle-btn {
+            height: 35px;
+            padding: 0 16px;
+            background: #ffffff;
+            border: 1.5px solid #2563eb;
+            color: #2563eb;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .menu-toggle-btn:hover {
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        /* Status Checker UI Styling */
+        .status-card-box {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .search-input-wrapper {
+            position: relative;
+        }
+
+        .search-input-wrapper i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            font-size: 1.05rem;
+        }
+
+        .status-input {
+            width: 100%;
+            padding: 12px 14px 12px 42px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            box-sizing: border-box;
+        }
+
+        .status-input:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .btn-check-status {
+            background: #2563eb;
+            color: #ffffff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+
+        .btn-check-status:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        /* Status Result Box */
+        .result-box {
+            margin-top: 25px;
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .status-ready {
+            background: #dcfce7;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #b45309;
+            border: 1px solid #fde68a;
+        }
+
+        .alert-message-box {
+            border-radius: 10px;
+            padding: 16px;
+            margin-top: 15px;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .alert-ready {
+            background: #f0fdf4;
+            border: 1.5px solid #22c55e;
+            color: #14532d;
+        }
+
+        .alert-ready h4 {
+            font-size: 1.05rem;
+            color: #15803d;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .alert-pending {
+            background: #fffbeb;
+            border: 1.5px solid #f59e0b;
+            color: #78350f;
+        }
+
+        .alert-pending h4 {
+            font-size: 1.05rem;
+            color: #b45309;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            background: #f8fafc;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            color: #334155;
+            margin-top: 10px;
+        }
+
+        .info-grid div span {
+            display: block;
+            font-size: 0.78rem;
+            color: #64748b;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Left-Aligned Visible Footer Styling */
+        footer {
+            background: #0f172a;
+            padding: 20px 16px;
+            margin-top: 50px;
+            border-top: 3px solid #2563eb;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .footer-content {
+            max-width: 1150px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .footer-bottom-text {
+            font-size: 0.88rem;
+            color: #ffffff;
+            font-weight: 500;
+            margin: 0;
+            text-align: left;
+            letter-spacing: 0.3px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="brand">
+                <img src="csc-logo.png" alt="CSC Digital Seva Logo" class="brand-logo-img">
+                <div class="brand-title">
+                    <h1 id="ui-center-name">Kamal Digital Seva</h1>
+                    <p>Official Service Portal</p>
+                </div>
+            </a>
+            
+            <div class="header-actions">
+                <button class="bell-btn" id="bellIconBtn" title="Live Updates Notifications" aria-label="Notifications">
+                    <i class="fa-solid fa-bell"></i>
+                    <span id="bell-badge" class="bell-badge" style="display: none;">0</span>
+                </button>
+
+                <button class="menu-toggle-btn" id="openDrawerBtn" aria-label="Toggle Navigation">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                    <span>Menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Side Drawer Navigation -->
+    <div class="sidebar-overlay" id="drawerOverlay"></div>
+    <nav class="side-drawer" id="sideDrawer">
+        <div class="drawer-header">
+            <h3>Navigation Menu</h3>
+            <button class="close-drawer-btn" id="closeDrawerBtn">&times;</button>
+        </div>
+        <ul class="drawer-menu">
+            <li><a href="index.html"><i class="fa-solid fa-house"></i> Overview (Home)</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-building"></i> About Us</a></li>
+            <li><a href="services.html"><i class="fa-solid fa-gears"></i> Services</a></li>
+            <li><a href="status.html" class="active-page"><i class="fa-solid fa-magnifying-glass"></i> Track Status</a></li>
+            <li><a href="updates.html"><i class="fa-solid fa-bullhorn"></i> Live Updates</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-location-dot"></i> Contact Us</a></li>
+            <li><a href="faq.html"><i class="fa-solid fa-circle-question"></i> FAQ</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div class="container">
+        <section class="page-box">
+            <h3 class="page-title"><i class="fa-solid fa-magnifying-glass"></i> Track Application Status</h3>
+            <p style="color: #64748b; font-size: 0.88rem; margin-bottom: 20px;">
+                Enter your Application Reference Code below to check your live status.
+            </p>
+
+            <div class="status-card-box">
+                <div class="search-form-group">
+                    <label style="font-weight: 700; font-size: 0.9rem; color: #1e293b;">Application Reference Number</label>
+                    <div class="search-input-wrapper">
+                        <i class="fa-solid fa-hashtag"></i>
+                        <input type="text" id="refInput" class="status-input" placeholder="e.g., KDS-2026-1001">
+                    </div>
+                    <button class="btn-check-status" onclick="checkApplicationStatus()">
+                        <i class="fa-solid fa-search"></i> Check Status
+                    </button>
+                </div>
+
+                <!-- Dynamic Status Result View -->
+                <div class="result-box" id="resultBox"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Corrected Footer -->
+    <footer>
+        <div class="footer-content">
+            <p class="footer-bottom-text">&copy; 2026 Kamal Digital Seva Center. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <!-- Google Sheet Connected Status Script -->
+    <script>
+        const GOOGLE_SHEET_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxZYTzqfU9Jx2Li-Wv5E7mqEFspIb7xIpbh5Eo-98zALTZ0sp8_C0IcxIUBMCN6yTht/exec";
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const refCode = urlParams.get('ref');
+
+            if (refCode) {
+                document.getElementById('refInput').value = refCode;
+                checkApplicationStatus();
+            }
+        });
+
+        async function checkApplicationStatus() {
+            const inputVal = document.getElementById('refInput').value.trim();
+            const resultBox = document.getElementById('resultBox');
+
+            if (!inputVal) {
+                resultBox.style.display = "block";
+                resultBox.innerHTML = `
+                    <div style="text-align: center; padding: 12px; color: #dc2626; background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; font-weight: 600; font-size: 0.9rem;">
+                        <i class="fa-solid fa-circle-exclamation"></i> Please enter a valid Reference Number!
+                    </div>
+                `;
+                return;
+            }
+
+            resultBox.style.display = "block";
+            resultBox.innerHTML = `
+                <div style="text-align: center; padding: 20px; color: #64748b;">
+                    <i class="fa-solid fa-spinner fa-spin" style="font-size: 1.5rem; color: #2563eb;"></i>
+                    <p style="margin-top: 8px; font-size: 0.9rem;">Checking status from database...</p>
+                </div>
+            `;
+
+            try {
+                const response = await fetch(`${GOOGLE_SHEET_SCRIPT_URL}?ref=${encodeURIComponent(inputVal)}`);
+                const data = await response.json();
+
+                if (data.found) {
+                    renderStatusResult(data.refCode, data.customerName, data.status, data.serviceName);
+                } else {
+                    renderStatusResult(inputVal, "Applicant", "Processing", "Digital Service Application");
+                }
+            } catch (error) {
+                console.error("Error fetching status:", error);
+                resultBox.innerHTML = `
+                    <div style="text-align: center; padding: 15px; color: #e11d48; background: #ffe4e6; border-radius: 8px; margin-top: 15px;">
+                        ❌ Unable to fetch status. Please check your Reference Code or try again later.
+                    </div>
+                `;
+            }
+        }
+
+        function renderStatusResult(refNo, customerName, status, serviceName) {
+            const resultBox = document.getElementById('resultBox');
+            const isReady = String(status).trim().toLowerCase() === "ready";
+            const displayName = customerName || "Applicant";
+
+            if (isReady) {
+                resultBox.innerHTML = `
+                    <div style="border-top: 1px solid #e2e8f0; padding-top: 15px; margin-top: 15px;">
+                        <span class="status-badge status-ready">
+                            <i class="fa-solid fa-circle-check"></i> Ready For Collection
+                        </span>
+
+                        <div class="info-grid">
+                            <div><span>Applicant Name</span> <strong>${displayName}</strong></div>
+                            <div><span>Reference No</span> <strong>${refNo.toUpperCase()}</strong></div>
+                            <div style="grid-column: span 2;"><span>Service Name</span> <strong>${serviceName}</strong></div>
+                        </div>
+
+                        <div class="alert-message-box alert-ready">
+                            <h4><i class="fa-solid fa-bullhorn"></i> Application Ready!</h4>
+                            <p>Hello <strong>${displayName}</strong>, your application is completely ready! Please visit <strong>Kamal Digital Seva Center</strong> with your Acknowledgement Receipt to collect your document.</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                resultBox.innerHTML = `
+                    <div style="border-top: 1px solid #e2e8f0; padding-top: 15px; margin-top: 15px;">
+                        <span class="status-badge status-pending">
+                            <i class="fa-solid fa-hourglass-half"></i> Under Process
+                        </span>
+
+                        <div class="info-grid">
+                            <div><span>Applicant Name</span> <strong>${displayName}</strong></div>
+                            <div><span>Reference No</span> <strong>${refNo.toUpperCase()}</strong></div>
+                            <div style="grid-column: span 2;"><span>Service Name</span> <strong>${serviceName}</strong></div>
+                        </div>
+
+                        <div class="alert-message-box alert-pending">
+                            <h4><i class="fa-solid fa-clock"></i> Application Under Process</h4>
+                            <p>Hello <strong>${displayName}</strong>, your application is currently under process. Once completed, the status will be updated here for collection.</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
