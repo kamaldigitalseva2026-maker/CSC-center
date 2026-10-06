@@ -8,7 +8,7 @@ const CONFIG = {
     // 🌐 Live Updates Fetch URL
     webAppUrl: "https://script.google.com/macros/s/AKfycbxAy2z0MJn19pK7bQQn3T99Mn2hut-q_4nLmRF3Tv-t4pw5ZzuTN4gg1l0vPr_11lU/exec",
     
-    // 📤 Customer Leads Save URL (Updated)
+    // 📤 Customer Leads Save URL
     saveCustomerUrl: "https://script.google.com/macros/s/AKfycbzzIVjuPHKfe5zTxQRC-zi_8HwVFIVTGJ0YThRXFc6ejm6QRwmTgB47-BPuGA_fFfF1Pg/exec",
 
     // 🔒 Security Token
@@ -143,7 +143,7 @@ function initAutoSlider() {
 }
 
 // ==========================================
-// 📊 DYNAMIC GOOGLE SHEET DATA LOADER
+// 📊 DYNAMIC GOOGLE SHEET DATA LOADER (FIXED)
 // ==========================================
 async function fetchLiveSheetUpdates(tabName = "Sheet1") {
     const tbody = document.getElementById('live-data-tbody');
@@ -183,13 +183,14 @@ async function fetchLiveSheetUpdates(tabName = "Sheet1") {
         if (tbody) {
             tbody.innerHTML = '';
             data.forEach(item => {
-                const title = item.schemename || '';
-                const category = item.category || '';
-                const deadline = item.lastdate || '';
-                let url = item.link || '';
+                // Safe string conversion to avoid .trim() error
+                const title = item.schemename != null ? String(item.schemename).trim() : '';
+                const category = item.category != null ? String(item.category).trim() : '';
+                const deadline = item.lastdate != null ? String(item.lastdate).trim() : '';
+                let url = item.link != null ? String(item.link).trim() : '';
 
                 let actionHtml = '—';
-                if (url && url !== '#' && url.trim() !== '') {
+                if (url && url !== '#' && url !== '') {
                     const safeTitle = title.replace(/'/g, "\\'");
                     const safeUrl = url.replace(/'/g, "\\'");
                     actionHtml = `<button type="button" onclick="openApplyModal('${safeTitle}', '${safeUrl}')" class="btn-action" style="border:none; cursor:pointer;">Apply Now</button>`;
@@ -390,7 +391,7 @@ async function handleApplyFormSubmit(e) {
 }
 
 // ==========================================
-// 🔔 NOTIFICATION SYSTEM
+// 🔔 NOTIFICATION SYSTEM (FIXED)
 // ==========================================
 function checkUnreadNotifications(data) {
     const badge = document.getElementById('bell-badge');
@@ -399,7 +400,7 @@ function checkUnreadNotifications(data) {
     const seenTitles = JSON.parse(localStorage.getItem('seenUpdateTitles') || '[]');
 
     const unreadItems = data.filter(item => {
-        const title = item.schemename ? item.schemename.trim() : '';
+        const title = item.schemename != null ? String(item.schemename).trim() : '';
         return title !== '' && !seenTitles.includes(title);
     });
 
@@ -416,7 +417,7 @@ function markNotificationsAsRead() {
 
     if (latestSheetData.length > 0) {
         const currentTitles = latestSheetData
-            .map(item => item.schemename ? item.schemename.trim() : '')
+            .map(item => item.schemename != null ? String(item.schemename).trim() : '')
             .filter(Boolean);
 
         localStorage.setItem('seenUpdateTitles', JSON.stringify(currentTitles));
