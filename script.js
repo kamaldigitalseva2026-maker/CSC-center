@@ -5,12 +5,14 @@ const CONFIG = {
     centerName: "Kamal Digital Seva",
     address: "Hojai, Gitamandir, PNB opposite, 1st floor",
     
-    // Live Updates Fetch URL & Customer Leads Save URL
-    webAppUrl: "https://script.google.com/macros/s/AKfycbwo9gbdZ4LFODE1cgw23hx5L9spHjzVbxD5Pm7Gjvce6UPfkrdYfjXMwU6JVXb1ycmwmw/exec",
-    saveCustomerUrl: "https://script.google.com/macros/s/AKfycbwo9gbdZ4LFODE1cgw23hx5L9spHjzVbxD5Pm7Gjvce6UPfkrdYfjXMwU6JVXb1ycmwmw/exec",
+    // 🌐 Live Updates Fetch URL
+    webAppUrl: "https://script.google.com/macros/s/AKfycbxAy2z0MJn19pK7bQQn3T99Mn2hut-q_4nLmRF3Tv-t4pw5ZzuTN4gg1l0vPr_11lU/exec",
+    
+    // 📤 Customer Leads Save URL (Updated)
+    saveCustomerUrl: "https://script.google.com/macros/s/AKfycbzzIVjuPHKfe5zTxQRC-zi_8HwVFIVTGJ0YThRXFc6ejm6QRwmTgB47-BPuGA_fFfF1Pg/exec",
 
-    // 🔒 Secret Security Token (Matches Apps Script CONFIG)
-    secretToken: "KamalSeva2026@SecurePasskey#99"
+    // 🔒 Security Token
+    secretToken: "KamalSeva2026SecurePasskey99"
 };
 
 let latestSheetData = [];
@@ -141,7 +143,7 @@ function initAutoSlider() {
 }
 
 // ==========================================
-// 📊 DYNAMIC GOOGLE SHEET DATA LOADER (SECURED)
+// 📊 DYNAMIC GOOGLE SHEET DATA LOADER
 // ==========================================
 async function fetchLiveSheetUpdates(tabName = "Sheet1") {
     const tbody = document.getElementById('live-data-tbody');
@@ -150,23 +152,20 @@ async function fetchLiveSheetUpdates(tabName = "Sheet1") {
         tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 20px; color: #64748b;">⏳ Loading live updates...</td></tr>';
     }
 
-    if (!CONFIG.webAppUrl || CONFIG.webAppUrl === "YOUR_GOOGLE_WEB_APP_URL_HERE") {
-        if (tbody) {
-            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding: 20px; color: #64748b;">Please configure your Google Web App URL in script.js.</td></tr>';
-        }
-        return;
-    }
-
-    // 🔒 Token Attached in Endpoint
     const endpoint = `${CONFIG.webAppUrl}?tab=${encodeURIComponent(tabName)}&token=${encodeURIComponent(CONFIG.secretToken)}`;
 
     try {
         const res = await fetch(endpoint);
+        
+        if (!res.ok) {
+            throw new Error(`HTTP Error Status: ${res.status}`);
+        }
+
         const data = await res.json();
         
         if (data.status === "error") {
             if (tbody) {
-                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#e11d48; padding:15px;">🔒 ${data.message}</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#e11d48; padding:15px;">🔒 Security Error: ${data.message}</td></tr>`;
             }
             return;
         }
@@ -212,7 +211,7 @@ async function fetchLiveSheetUpdates(tabName = "Sheet1") {
     } catch (err) {
         console.error("Sheet Sync Error:", err);
         if (tbody) {
-            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#e11d48; padding:15px;">Failed to load live data</td></tr>';
+            tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#e11d48; padding:15px;">Error: ${err.message}</td></tr>`;
         }
     }
 }
@@ -359,7 +358,7 @@ async function handleApplyFormSubmit(e) {
     userApplications.push(applicationRecord);
     localStorage.setItem('myApplications', JSON.stringify(userApplications));
 
-    // 🔒 Secured Submission with Token Validation
+    // 🔒 Secured Submission with Token to Customer URL
     if (CONFIG.saveCustomerUrl) {
         try {
             const formData = new URLSearchParams();
@@ -368,8 +367,6 @@ async function handleApplyFormSubmit(e) {
             formData.append('phone', phone);
             formData.append('address', address);
             formData.append('description', description || "N/A");
-            
-            // 🔒 Token Attached
             formData.append('secretToken', CONFIG.secretToken);
 
             await fetch(CONFIG.saveCustomerUrl, {
