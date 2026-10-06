@@ -5,11 +5,12 @@ const CONFIG = {
     centerName: "Kamal Digital Seva",
     address: "Hojai, Gitamandir, PNB opposite, 1st floor",
     
-    // Live Updates Fetch URL (Updated with New Web App)
-    webAppUrl: "https://script.google.com/macros/s/AKfycbzpwgcwfDoOF5yHywIMNOY-ZRRaFzRPvKgPyjdUmCKdcf5oZrI5ryi1TGSHqMjRUJ9-tA/exec",
+    // Live Updates Fetch URL & Customer Leads Save URL
+    webAppUrl: "https://script.google.com/macros/s/AKfycbwo9gbdZ4LFODE1cgw23hx5L9spHjzVbxD5Pm7Gjvce6UPfkrdYfjXMwU6JVXb1ycmwmw/exec",
+    saveCustomerUrl: "https://script.google.com/macros/s/AKfycbwo9gbdZ4LFODE1cgw23hx5L9spHjzVbxD5Pm7Gjvce6UPfkrdYfjXMwU6JVXb1ycmwmw/exec",
 
-    // Customer Leads Save URL
-    saveCustomerUrl: "https://script.google.com/macros/s/AKfycbzzIVjuPHKfe5zTxQRC-zi_8HwVFIVTGJ0YThRXFc6ejm6QRwmTgB47-BPuGA_fFfF1Pg/exec"
+    // 🔒 Secret Security Token (Matches Apps Script CONFIG)
+    secretToken: "KamalSeva2026@SecurePasskey#99"
 };
 
 let latestSheetData = [];
@@ -140,7 +141,7 @@ function initAutoSlider() {
 }
 
 // ==========================================
-// 📊 DYNAMIC GOOGLE SHEET DATA LOADER
+// 📊 DYNAMIC GOOGLE SHEET DATA LOADER (SECURED)
 // ==========================================
 async function fetchLiveSheetUpdates(tabName = "Sheet1") {
     const tbody = document.getElementById('live-data-tbody');
@@ -156,8 +157,8 @@ async function fetchLiveSheetUpdates(tabName = "Sheet1") {
         return;
     }
 
-    const currentOrigin = window.location.host;
-    const endpoint = `${CONFIG.webAppUrl}?tab=${encodeURIComponent(tabName)}&origin=${encodeURIComponent(currentOrigin)}`;
+    // 🔒 Token Attached in Endpoint
+    const endpoint = `${CONFIG.webAppUrl}?tab=${encodeURIComponent(tabName)}&token=${encodeURIComponent(CONFIG.secretToken)}`;
 
     try {
         const res = await fetch(endpoint);
@@ -225,24 +226,21 @@ function createApplyModalHTML() {
     const modalHTML = `
     <div class="modal-overlay" id="applyModalOverlay">
         <div class="modal-card" id="modalCardBody">
-            <!-- Form View -->
             <div id="modalFormContent">
                 <div class="modal-header">
                     <h4 class="modal-title" id="modalSchemeTitle">Application Confirmation</h4>
                     <button type="button" class="close-modal-btn" id="closeApplyModalBtn">&times;</button>
                 </div>
 
-                <!-- Guidelines Box -->
                 <div class="guidelines-box">
                     <h5>📋 Application Guidelines:</h5>
                     <ul>
                         <li>Please verify all your details carefully before submitting.</li>
-                        <li>Keep all required documents (Aadhaar, Marksheet, Photo) ready.</li>
+                        <li>Keep all required documents ready.</li>
                         <li>Provide an active mobile / WhatsApp number for communication.</li>
                     </ul>
                 </div>
 
-                <!-- User Detail Form -->
                 <form id="applyConfirmationForm" class="apply-form">
                     <div class="form-group">
                         <label for="applicantName">Full Name *</label>
@@ -259,7 +257,6 @@ function createApplyModalHTML() {
                         <textarea id="applicantAddress" rows="2" placeholder="Village / Town, PIN Code, District" required></textarea>
                     </div>
 
-                    <!-- Description Input Field -->
                     <div class="form-group">
                         <label for="applicantDescription">Description / Extra Details (Optional)</label>
                         <textarea id="applicantDescription" rows="2" placeholder="Enter any additional details or notes..."></textarea>
@@ -272,7 +269,6 @@ function createApplyModalHTML() {
                 </form>
             </div>
 
-            <!-- Custom Success Message View -->
             <div id="modalSuccessContent" style="display: none; text-align: center; padding: 20px 10px;">
                 <div style="font-size: 3.5rem; color: #16a34a; margin-bottom: 10px;">✅</div>
                 <h3 style="color: #0f172a; margin-bottom: 10px; font-weight: 700;">Successfully Applied!</h3>
@@ -323,6 +319,9 @@ function closeApplyModal() {
     if (modalOverlay) modalOverlay.classList.remove('active');
 }
 
+// ==========================================
+// 📤 SECURED FORM SUBMISSION LOGIC
+// ==========================================
 async function handleApplyFormSubmit(e) {
     e.preventDefault();
 
@@ -360,7 +359,7 @@ async function handleApplyFormSubmit(e) {
     userApplications.push(applicationRecord);
     localStorage.setItem('myApplications', JSON.stringify(userApplications));
 
-    // Send data to Google Sheet via Web App URL
+    // 🔒 Secured Submission with Token Validation
     if (CONFIG.saveCustomerUrl) {
         try {
             const formData = new URLSearchParams();
@@ -369,6 +368,9 @@ async function handleApplyFormSubmit(e) {
             formData.append('phone', phone);
             formData.append('address', address);
             formData.append('description', description || "N/A");
+            
+            // 🔒 Token Attached
+            formData.append('secretToken', CONFIG.secretToken);
 
             await fetch(CONFIG.saveCustomerUrl, {
                 method: 'POST',
@@ -386,7 +388,6 @@ async function handleApplyFormSubmit(e) {
     submitBtn.innerText = originalBtnText;
     submitBtn.disabled = false;
 
-    // Show Success Screen
     document.getElementById('modalFormContent').style.display = 'none';
     document.getElementById('modalSuccessContent').style.display = 'block';
 }
